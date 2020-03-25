@@ -73,10 +73,10 @@ functions:
         handler: delete.main
         events:
             - http:
-              path: notes/{id}
-              method: delete
-              cors: true
-              authorizer: aws_iam
+                  path: notes/{id}
+                  method: delete
+                  cors: true
+                  authorizer: aws_iam
     billing:
         handler: billing.main
         events:
