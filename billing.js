@@ -1,21 +1,23 @@
 import Stripe from 'stripe';
 import { calculateCost } from './libs/billingCostCalculator';
-import { success, failure } from './libs/response-lib';
+import { success, failure } from './libs/responses';
 
 export async function main(event, contect) {
 	const { storage, source } = JSON.parse(event.body);
 	const amount = calculateCost(storage);
 	const description = 'Scratch charge';
 
-	const stripe = Stripe(process.env('stripeSecretKey'));
+	const stripe = Stripe(process.env.stripeSecretKey);
 
 	try {
-		await stripe.charges.create({
+		const charge = await stripe.charges.create({
 			source,
 			amount,
 			description,
-			currecy: 'USD'
+			currency: 'USD'
 		});
+
+		console.log(charge);
 
 		return success({ status: true });
 	} catch (error) {
