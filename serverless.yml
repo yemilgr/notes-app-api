@@ -1,3 +1,5 @@
+org: yemilgr
+app: notes-api
 # NOTE: update this with your service name
 service: notes-app-api
 
@@ -34,13 +36,13 @@ provider:
               - dynamodb:PutItem
               - dynamodb:UpdateItem
               - dynamodb:DeleteItem
-          Resource: 'arn:aws:dynamodb:us-west-2:*:*'
+          Resource: 'arn:aws:dynamodb:eu-west-2:968949085204:table/NotesTable'
 
 functions:
     list:
         handler: list.main
         events:
-            - hhtp:
+            - http:
                   path: notes
                   method: GET
                   cors: true
@@ -56,7 +58,7 @@ functions:
     get:
         handler: get.main
         events:
-            - hhtp:
+            - http:
                   path: notes/{id}
                   method: GET
                   cors: true
